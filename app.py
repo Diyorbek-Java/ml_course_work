@@ -1,10 +1,14 @@
-
 """
 Liver Disease Prediction - Streamlit Application
 Main entry point for the multi-page Streamlit app
+
+Author: WIUT Student
+Module: 6COSC017C-n, Machine Learning and Data Analytics
 """
 
 import streamlit as st
+import pandas as pd
+from pathlib import Path
 
 # Page configuration
 st.set_page_config(
@@ -92,6 +96,31 @@ in patients using the Indian Liver Patient Dataset (ILPD).
 4. **Evaluation**: Comprehensive metrics and visualizations
 5. **Deployment**: Interactive prediction interface
 """)
+
+# Dataset preview
+dataset_path = Path("Indian Liver Patient Dataset (ILPD).csv")
+if dataset_path.exists():
+    try:
+        column_names = [
+            'Age', 'Gender', 'Total_Bilirubin', 'Direct_Bilirubin',
+            'Alkaline_Phosphotase', 'Alamine_Aminotransferase',
+            'Aspartate_Aminotransferase', 'Total_Proteins', 'Albumin',
+            'Albumin_Globulin_Ratio', 'Target'
+        ]
+        df = pd.read_csv(dataset_path, names=column_names)
+
+        st.subheader("Quick Dataset Statistics")
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Samples", df.shape[0])
+        with col2:
+            st.metric("Features", df.shape[1] - 1)
+        with col3:
+            st.metric("Liver Disease Cases", df[df['Target'] == 1].shape[0])
+        with col4:
+            st.metric("Healthy Cases", df[df['Target'] == 2].shape[0])
+    except Exception as e:
+        st.error(f"Error loading dataset: {str(e)}")
 
 st.markdown("---")
 

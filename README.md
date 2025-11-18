@@ -38,8 +38,9 @@ This project demonstrates an end-to-end machine learning pipeline for medical di
 
 ### Prerequisites
 
-- Python 3.10+
+- **Python 3.10 or higher** (tested on Python 3.13)
 - pip package manager
+- Git (for version control)
 
 ### Installation
 
@@ -49,14 +50,34 @@ git clone <repository-url>
 cd FirstTry
 ```
 
-2. Install dependencies
+2. Create a virtual environment (recommended)
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Ensure the dataset file is in the project directory
-```
+4. Verify the dataset file is present
+```bash
+# Should exist in the project root directory
 Indian Liver Patient Dataset (ILPD).csv
+```
+
+### Testing the Installation
+
+Run this command to verify all packages are installed correctly:
+
+```bash
+python -c "import pandas, numpy, sklearn, xgboost, streamlit; print('All packages installed successfully!')"
 ```
 
 ## 💻 Usage
@@ -80,12 +101,25 @@ The notebook contains:
 streamlit run app.py
 ```
 
+The application will open in your default web browser at `http://localhost:8501`
+
 The app provides:
-- **Data Exploration**: Interactive visualizations and statistics
-- **Preprocessing**: View data cleaning steps
-- **Model Training**: Train and compare multiple algorithms
-- **Model Evaluation**: Detailed performance analysis
-- **Prediction**: Make predictions on new patient data
+- **Home Page**: Project overview and quick statistics
+- **📊 Data Exploration**: Interactive visualizations and statistical analysis
+- **🔧 Preprocessing**: View data cleaning and transformation steps
+- **🤖 Model Training**: Train and compare multiple algorithms
+- **📈 Model Evaluation**: Detailed performance metrics and visualizations
+- **🔮 Prediction**: Make predictions on new patient data
+
+#### Deploying to Streamlit Cloud (Optional)
+
+1. Push your code to GitHub
+2. Visit [share.streamlit.io](https://share.streamlit.io)
+3. Connect your GitHub repository
+4. Select the main file: `app.py`
+5. Deploy
+
+**Note**: Ensure all dependencies are in `requirements.txt` and dataset file is included in the repository.
 
 ## 📁 Project Structure
 
@@ -176,12 +210,47 @@ A comprehensive report is included covering:
 
 This application is for educational and research purposes only. It is NOT intended for clinical use or medical decision-making. Always consult qualified healthcare professionals for medical advice.
 
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Issue**: `ModuleNotFoundError` when running code
+**Solution**: Ensure virtual environment is activated and all dependencies installed:
+```bash
+pip install -r requirements.txt
+```
+
+**Issue**: Streamlit app won't start
+**Solution**:
+- Check if port 8501 is already in use
+- Try specifying a different port: `streamlit run app.py --server.port 8502`
+
+**Issue**: Dataset not found error
+**Solution**: Ensure `Indian Liver Patient Dataset (ILPD).csv` is in the project root directory
+
+**Issue**: Pandas/NumPy build errors on Python 3.13
+**Solution**: The requirements.txt has been updated with compatible versions. If issues persist:
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt --force-reinstall
+```
+
+**Issue**: Models not found when running predictions
+**Solution**: Run the Jupyter notebook completely to train and save models to the `models/` directory
+
+### Performance Tips
+
+- For faster Streamlit app loading, pre-train models using the Jupyter notebook
+- Use caching decorators (@st.cache_data) already implemented in the code
+- For large datasets, consider sampling for initial exploration
+
 ## 📚 References
 
 - UCI Machine Learning Repository - Indian Liver Patient Dataset
-- Scikit-learn Documentation
-- Imbalanced-learn Documentation
-- Streamlit Documentation
+- Scikit-learn Documentation: https://scikit-learn.org/
+- XGBoost Documentation: https://xgboost.readthedocs.io/
+- Imbalanced-learn Documentation: https://imbalanced-learn.org/
+- Streamlit Documentation: https://docs.streamlit.io/
 
 ## 👨‍💻 Development
 
