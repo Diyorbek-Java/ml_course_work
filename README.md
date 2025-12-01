@@ -47,7 +47,7 @@ This project demonstrates an end-to-end machine learning pipeline for medical di
 1. Clone the repository
 ```bash
 git clone <repository-url>
-cd FirstTry
+cd [package_name]
 ```
 
 2. Create a virtual environment (recommended)
